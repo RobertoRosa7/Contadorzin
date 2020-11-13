@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTADOR DE ANÁLISES</title>
+  <style>
+    body {
+
+      background-color: rgb(223, 211, 39);
+      color: rgb(250, 6, 67);
+      font: normal 20pt cambria;
+    }
+
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0vh;
+      align-items: center;
+
+    }
+
+    input {
+
+      display: inline;
+      justify-content: center;
+      min-height: 2em;
+    }
+
+    .start-counter {
+      counter-reset: meucontador;
+
+    }
+
+    .print-counter::after {
+      content: counter(meucontador);
+
+    }
+
+    .counter-increment:click {
+      counter-increment: meucontador;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0vh;
+      background: rgb(223, 211, 39);
+      font-size: 4em;
+    }
+
+    .checkbox-group {
+      display: flex;
+      width: 100%;
+      max-width: 150px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .checkbox-group input[type="submit"],
+    .checkbox-group input[type="checkbox"] {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><strong>Contador de Análises</strong></h1>
+  <br>
+  <p>Sub-Emissor</p>
+  <form action="CONTADOR.html" method="dialog">
+    <div class="checkbox-group">
+      <input id="ch-emissor" type="checkbox" name="Sub-Emissor">
+      <input id="ch-enviar" type="submit" value="Enviar">
+      <input id="ch-zerar" type="submit" value="Zerar">
+    </div>
+  </form>
+  <br>
+  <div id="counter">0</div>
+</body>
+<script>
+  // JavaScript...
+  // alternativa para DOMContentLoaded evento
+  const initState = { counter: 0 }
+
+  document.onreadystatechange = function () {
+    if (document.readyState === 'interactive') {
+      initApplication();
+    }
+  }
+
+  function initApplication() {
+
+    const checkbox = document.querySelector('#ch-emissor')
+    const enviar = document.querySelector('#ch-enviar')
+    const zerar = document.querySelector('#ch-zerar')
+    enviar.disabled = !checkbox.hasAttribute('checked')
+
+    checkbox.addEventListener('change', e => {
+      enviar.disabled = !e.target.checked
+      if (e.target.checked) {
+        inc()
+      }
+    })
+
+    zerar.addEventListener('click', e => {
+      initState.counter = 0
+      document.querySelector('#counter').innerHTML = initState.counter
+
+    })
+  }
+
+  function inc() {
+    const enviar = document.querySelector('#ch-enviar')
+    enviar.addEventListener('click', e => {
+      initState.counter++
+      document.querySelector('#counter').innerHTML = initState.counter
+    })
+  }
+</script>
+
+</html>
