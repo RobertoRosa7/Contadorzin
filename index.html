@@ -60,12 +60,11 @@
       align-items: center;
     }
 
-    .checkbox-group input[type="submit"],
-    .checkbox-group input[type="checkbox"] {
+    .checkbox-group button {
       cursor: pointer;
     }
 
-    .checkbox-group input[type="submit"]:disabled {
+    .checkbox-group button:disabled {
       cursor: not-allowed;
     }
   </style>
@@ -78,8 +77,8 @@
   <form action="CONTADOR.html" method="dialog">
     <div class="checkbox-group">
       <input id="ch-emissor" type="checkbox" name="Sub-Emissor">
-      <input id="ch-enviar" type="submit" value="Enviar">
-      <input id="ch-zerar" type="submit" value="Zerar">
+      <button id="ch-enviar" value="Enviar">Enviar</button>
+      <button id="ch-zerar" value="Zerar">Zerar</button>
     </div>
   </form>
   <br>
@@ -103,26 +102,18 @@
     const zerar = document.querySelector('#ch-zerar')
     enviar.disabled = !checkbox.hasAttribute('checked')
 
-    checkbox.addEventListener('change', e => {
-      enviar.disabled = !e.target.checked
-      if (e.target.checked) {
-        inc()
-      }
-    })
+    checkbox.addEventListener('change', e => enviar.disabled = !e.target.checked)
+    zerar.addEventListener('click', zero)
+    enviar.addEventListener('click', inc)
 
-    zerar.addEventListener('click', e => {
-      initState.counter = 0
-      document.querySelector('#counter').innerHTML = initState.counter
-
-    })
-  }
-
-  function inc() {
-    const enviar = document.querySelector('#ch-enviar')
-    enviar.addEventListener('click', e => {
+    function inc() {
       initState.counter++
       document.querySelector('#counter').innerHTML = initState.counter
-    })
+    }
+    function zero() {
+      initState.counter = 0
+      document.querySelector('#counter').innerHTML = initState.counter
+    }
   }
 </script>
 
